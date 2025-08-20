@@ -14,9 +14,7 @@
       .contact {
         display: flex;
         width: 100%;
-
         padding: 10px;
-
         background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
         color: #ffffff;
         align-items: center;
@@ -80,6 +78,10 @@
         border-radius: 20px;
         padding: 30px;
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        a {
+          color: #00d9ff;
+          text-decoration:none;
+        }
       }
 
       h1 {
@@ -732,16 +734,413 @@
         font-size: 0.9em;
         opacity: 0.9;
       }
+      @media (max-width: 768px) {
+        body {
+          padding: 10px;
+        }
 
-      @media (max-width: 1024px) {
+        .container {
+          padding: 15px;
+          border-radius: 15px;
+        }
+
+        h1 {
+          font-size: 1.8em;
+        }
+
+        .subtitle {
+          font-size: 1em;
+          margin-bottom: 20px;
+        }
+
+        /* Contact Section */
+        .contact {
+          flex-direction: column;
+          gap: 8px;
+          padding: 15px;
+        }
+
+        .contact-card {
+          width: 100%;
+          padding: 12px;
+          font-size: 0.9em;
+        }
+
+        .contact-card b {
+          display: inline-block;
+          margin-right: 5px;
+        }
+
+        /* Main Layout - Stack vertically on mobile */
         .main-layout {
           grid-template-columns: 1fr;
+          gap: 20px;
         }
+
+        /* Controls */
+        .controls {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 8px;
+        }
+
+        button {
+          padding: 10px 12px;
+          font-size: 0.9em;
+        }
+
+        /* Connection Pool Grid */
+        .pool {
+          grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+          gap: 10px;
+        }
+
+        .connection {
+          padding: 10px;
+        }
+
+        .connection-icon {
+          font-size: 1.5em;
+        }
+
+        .connection-label {
+          font-size: 0.8em;
+        }
+
+        /* Stats Cards */
+        .stats {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+
+        .stat-card {
+          padding: 12px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .stat-value {
+          font-size: 1.5em;
+        }
+
+        .stat-label {
+          font-size: 0.9em;
+        }
+
+        /* Flow Diagram */
+        .flow-steps {
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .flow-step {
+          width: 100%;
+          min-width: unset;
+        }
+
+        .flow-step:not(:last-child)::after {
+          content: "↓";
+          position: absolute;
+          right: 50%;
+          bottom: -20px;
+          top: unset;
+          transform: translateX(50%);
+        }
+
+        /* Comparison Section */
+        .comparison-grid {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+
+        .timeline-bar {
+          height: 30px;
+        }
+
+        .work-time {
+          font-size: 0.7em;
+          padding: 0 5px;
+        }
+
+        /* Hot Dog Analogy */
+        .analogy-grid {
+          grid-template-columns: 1fr;
+          gap: 15px;
+        }
+
+        /* Single Thread Demo */
+        .single-thread-controls {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 8px;
+        }
+
+        .single-thread-controls button {
+          font-size: 0.85em;
+          padding: 10px 8px;
+        }
+
+        .single-thread-pool {
+          grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+        }
+
+        /* Query Queue */
+        .query-item {
+          font-size: 0.8em;
+          padding: 8px 10px;
+        }
+
+        /* GoF Pattern Documentation */
+        .gof-pattern-card {
+          margin: 20px 0;
+        }
+
+        .gof-header {
+          padding: 20px;
+        }
+
+        .gof-title {
+          font-size: 1.8em;
+        }
+
+        .gof-subtitle {
+          font-size: 1em;
+        }
+
+        .gof-section {
+          padding: 20px;
+        }
+
+        .gof-section-title {
+          font-size: 1.2em;
+        }
+
+        .gof-content {
+          font-size: 0.95em;
+        }
+
+        /* Make SVG diagrams responsive */
+        .gof-diagram svg,
+        .gof-sequence svg {
+          width: 100%;
+          height: auto;
+          max-height: 400px;
+        }
+
+        /* Code blocks */
+        .gof-code {
+          padding: 15px;
+          font-size: 0.8em;
+          overflow-x: auto;
+        }
+
+        .gof-code pre {
+          font-size: 0.85em;
+        }
+
+        /* Sections */
+        .section {
+          padding: 15px;
+        }
+
+        .section-title {
+          font-size: 1.1em;
+          margin-bottom: 10px;
+        }
+
+        /* Handle Display */
+        .handle {
+          padding: 10px;
+          font-size: 0.85em;
+        }
+
+        /* Client Threads */
+        .client {
+          padding: 10px;
+          font-size: 0.9em;
+        }
+      }
+
+      /* Small Mobile (iPhone SE, etc) */
+      @media (max-width: 375px) {
+        h1 {
+          font-size: 1.5em;
+        }
+
+        .controls {
+          grid-template-columns: 1fr;
+        }
+
+        .single-thread-controls {
+          grid-template-columns: 1fr;
+        }
+
+        button {
+          width: 100%;
+          padding: 12px;
+        }
+
+        .pool {
+          grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+        }
+
+        .connection {
+          padding: 8px;
+        }
+
+        .connection-icon {
+          font-size: 1.2em;
+        }
+
+        .stat-card {
+          flex-direction: column;
+          text-align: center;
+          gap: 5px;
+        }
+      }
+
+      /* Tablet Portrait */
+      @media (min-width: 768px) and (max-width: 1024px) {
+        .main-layout {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .main-layout > .section:last-child {
+          grid-column: 1 / -1;
+        }
+
+        .controls {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+        }
+
         .comparison-grid {
           grid-template-columns: 1fr;
         }
-        .analogy-grid {
-          grid-template-columns: 1fr;
+
+        .flow-steps {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 15px;
+        }
+
+        .flow-step:not(:last-child)::after {
+          display: none;
+        }
+      }
+
+      /* Improve touch targets for mobile */
+      @media (hover: none) and (pointer: coarse) {
+        button,
+        .client,
+        .contact-card {
+          min-height: 44px; /* iOS recommended touch target */
+        }
+
+        .client::after {
+          opacity: 1; /* Always show arrow on touch devices */
+          right: 10px;
+        }
+      }
+
+      /* Landscape mobile */
+      @media (max-width: 896px) and (orientation: landscape) {
+        body {
+          padding: 10px;
+        }
+
+        .container {
+          padding: 15px;
+        }
+
+        h1 {
+          font-size: 1.8em;
+          margin-bottom: 5px;
+        }
+
+        .subtitle {
+          margin-bottom: 15px;
+        }
+
+        .main-layout {
+          grid-template-columns: 1fr 1fr;
+          gap: 15px;
+        }
+
+        .section {
+          padding: 10px;
+        }
+
+        .flow-steps {
+          gap: 10px;
+        }
+
+        .flow-step {
+          padding: 10px;
+          min-width: 120px;
+        }
+      }
+
+      /* Ensure text remains readable */
+      @media (max-width: 768px) {
+        body {
+          font-size: 14px;
+        }
+
+        .execution-status {
+          font-size: 0.8em;
+          padding: 10px;
+          min-height: 60px;
+        }
+
+        .timeline-label {
+          font-size: 0.8em;
+        }
+
+        .timeline-summary {
+          padding: 10px;
+          font-size: 0.85em;
+        }
+
+        .hot-dog-analogy {
+          padding: 15px;
+        }
+
+        .thread-indicator {
+          padding: 12px;
+        }
+
+        .thread-indicator h3 {
+          font-size: 1.1em;
+        }
+
+        .thread-indicator p {
+          font-size: 0.85em;
+        }
+      }
+
+      /* Fix horizontal scroll issues */
+      * {
+        max-width: 100%;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+      }
+
+      .container {
+        overflow-x: hidden;
+      }
+
+      svg {
+        max-width: 100%;
+        height: auto;
+      }
+
+      /* Improve readability of code blocks on mobile */
+      @media (max-width: 768px) {
+        .gof-code pre {
+          white-space: pre-wrap;
+          word-break: break-word;
         }
       }
     </style>
@@ -754,25 +1153,26 @@
       </div>
 
       <div class="contact-card">
-        <b>Github: </b>
-        <a href="https://github.com/Tanner-Davison" target="_blank"
-          >Tanner-Davison</a
-        >
-      </div>
-
-      <div class="contact-card">
-        <b>View Project</b>
+        <b>View Project On Github</b>
         <a href="https://github.com/Tanner-Davison/pgpool-cpp">pgpool-cpp</a>
       </div>
       <div class="contact-card">
         <b>Contact: </b>
-        <em>tanner.davison95@gmail.com</em>
+        <em
+          ><address>
+            <a href="mailto:tanner.davison95@gmail.com" target="_blank"
+              >tanner.davison95@gmail.com</a
+            >
+          </address></em
+        >
       </div>
     </div>
     <div class="container">
       <h1>🔌 Connection Pool Pattern</h1>
       <p class="subtitle">
-        Interactive Visualization of Database Connection Management
+        Interactive Visualization of a Database Connection Management
+        Application
+        <a href="https://github.com/Tanner-Davison/pgpool-cpp"><b>pgpool-cpp<b></a>
       </p>
 
       <div class="controls">
