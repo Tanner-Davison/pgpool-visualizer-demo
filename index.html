@@ -960,6 +960,7 @@
           padding: 10px;
           font-size: 0.9em;
         }
+
       }
 
       /* Small Mobile (iPhone SE, etc) */
@@ -1137,12 +1138,117 @@
       }
 
       /* Improve readability of code blocks on mobile */
-      @media (max-width: 768px) {
+@media (max-width: 768px) {
+
         .gof-code pre {
           white-space: pre-wrap;
           word-break: break-word;
         }
-      }
+  .comparison-panel {
+    padding: 15px;
+    overflow-x: auto;
+  }
+  
+  .timeline-container {
+    padding: 10px;
+    min-width: 280px;
+  }
+  
+  .timeline-bar {
+    height: 35px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    min-width: 250px;
+  }
+  
+  .work-time {
+    font-size: 0.65em;
+    padding: 2px 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: fit-content;
+  }
+  
+  .mutex-time {
+    min-width: 15px;
+    font-size: 0;
+  }
+  
+  .idle-time {
+    font-size: 0.7em;
+    padding: 5px;
+  }
+  
+  .timeline-summary {
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 0.8em;
+    line-height: 1.4;
+  }
+  
+  .timeline-summary strong {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .benefit,
+  .drawback {
+    display: block;
+    margin: 3px 0;
+    font-size: 0.85em;
+  }
+}
+
+/* For very small screens */
+@media (max-width: 400px) {
+.work-time {
+    font-size: 0.6rem !important; /* Keep the text visible but smaller */
+    padding: 2px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Hide the full text but show shortened version */
+  .work-time {
+    text-indent: -9999px; /* Hide original text */
+    position: relative;
+  }
+  
+  .work-time::after {
+    content: attr(data-time);
+    position: absolute;
+    text-indent: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.6rem;
+    white-space: nowrap;
+  }
+  
+  /* Fallback for missing data-time attributes */
+  .parallel-2:not([data-time])::after {
+    content: "UPDATE 30ms";
+  }
+  
+  .parallel-3:not([data-time])::after {
+    content: "INSERT 40ms";
+  }
+  
+  .sequential-1:not([data-time])::after {
+    content: "SELECT 50ms";
+  }
+  
+  .sequential-2:not([data-time])::after {
+    content: "UPDATE 30ms";
+  }
+  
+  .sequential-3:not([data-time])::after {
+    content: "INSERT 40ms";
+  }
+}
     </style>
   </head>
   <body>
@@ -1262,46 +1368,116 @@
           </div>
         </div>
       </div>
+<div class="comparison-section">
+  <h2 class="section-title">
+    🔄 Multi-Threaded vs Single-Threaded Execution
+  </h2>
+  <div class="comparison-grid">
+    <div class="comparison-panel">
+      <h3 class="comparison-title">🚀 Multi-Threaded (Parallel)</h3>
+      <div class="timeline-container">
+        <div class="timeline-label">Thread 1:</div>
+        <div class="timeline-bar">
+          <div
+            class="mutex-time"
+            style="width: 2%"
+            title="Get Connection"
+          ></div>
+          <div class="work-time parallel-1" style="width: 60%" data-time="SELECT 50ms">
+            Query: SELECT * FROM orders (50ms)
+          </div>
+        </div>
+        <div class="timeline-label">Thread 2:</div>
+        <div class="timeline-bar">
+          <div class="spacer" style="width: 2%"></div>
+          <div
+            class="mutex-time"
+            style="width: 2%"
+            title="Get Connection"
+          ></div>
+          <div class="work-time parallel-2" style="width: 45%" data-time="UPDATE 30ms">
+            Query: UPDATE inventory (30ms)
+          </div>
+        </div>
+        <div class="timeline-label">Thread 3:</div>
+        <div class="timeline-bar">
+          <div class="spacer" style="width: 4%"></div>
+          <div
+            class="mutex-time"
+            style="width: 2%"
+            title="Get Connection"
+          ></div>
+          <div class="work-time parallel-3" style="width: 50%" data-time="INSERT 40ms">
+            Query: INSERT INTO logs (40ms)
+          </div>
+        </div>
+        <div class="timeline-summary">
+          <strong>Total Time: ~50ms</strong> (limited by slowest query)<br />
+          <span class="benefit">✅ All queries run simultaneously</span
+          ><br />
+          <span class="benefit">✅ Full CPU/Database utilization</span
+          ><br />
+          <span class="benefit"
+            >✅ Pool pattern provides maximum benefit</span
+          >
+        </div>
+      </div>
+    </div>
 
-      <div class="comparison-section">
-        <h2 class="section-title">
-          🔄 Multi-Threaded vs Single-Threaded Execution
-        </h2>
-        <div class="comparison-grid">
-          <div class="comparison-panel">
-            <h3 class="comparison-title">🚀 Multi-Threaded (Parallel)</h3>
-            <div class="timeline-container">
-              <div class="timeline-label">Thread 1:</div>
-              <div class="timeline-bar">
-                <div
-                  class="mutex-time"
-                  style="width: 2%"
-                  title="Get Connection"
-                ></div>
-                <div class="work-time parallel-1" style="width: 60%">
-                  Query: SELECT * FROM orders (50ms)
+    <div class="comparison-panel">
+      <h3 class="comparison-title">🌭 Single-Threaded (Sequential)</h3>
+      <div class="timeline-container">
+        <div class="timeline-label">Thread 1:</div>
+        <div class="timeline-bar">
+          <div
+            class="mutex-time"
+            style="width: 1%"
+            title="Get Conn 1"
+          ></div>
+          <div class="work-time sequential-1" style="width: 30%" data-time="SELECT 50ms">
+            SELECT * FROM orders (50ms)
+          </div>
+          <div
+            class="mutex-time"
+            style="width: 1%"
+            title="Get Conn 2"
+          ></div>
+          <div class="work-time sequential-2" style="width: 20%" data-time="UPDATE 30ms">
+            UPDATE inventory (30ms)
+          </div>
+          <div
+            class="mutex-time"
+            style="width: 1%"
+            title="Get Conn 3"
+          ></div>
+          <div class="work-time sequential-3" style="width: 25%" data-time="INSERT 40ms">
+            INSERT INTO logs (40ms)
+          </div>
+        </div>
+        <div class="timeline-label">Thread 2:</div>
+        <div class="timeline-bar">
+          <div class="idle-time">Not Used (Single Thread Only)</div>
+        </div>
+        <div class="timeline-label">Thread 3:</div>
+        <div class="timeline-bar">
+          <div class="idle-time">Not Used (Single Thread Only)</div>
+        </div>
+        <div class="timeline-summary">
+          <strong>Total Time: 120ms</strong> (sum of all queries)<br />
+          <span class="drawback"
+            >⚠️ Only one connection used at a time</span
+          ><br />
+          <span class="drawback">⚠️ Other connections sit idle</span
+          ><br />
+          <span class="drawback"
+            >⚠️ Thread-safety overhead with no benefit</span
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
                 </div>
-              </div>
-              <div class="timeline-label">Thread 2:</div>
-              <div class="timeline-bar">
-                <div class="spacer" style="width: 2%"></div>
-                <div
-                  class="mutex-time"
-                  style="width: 2%"
-                  title="Get Connection"
-                ></div>
-                <div class="work-time parallel-2" style="width: 45%">
-                  Query: UPDATE inventory (30ms)
-                </div>
-              </div>
-              <div class="timeline-label">Thread 3:</div>
-              <div class="timeline-bar">
-                <div class="spacer" style="width: 4%"></div>
-                <div
-                  class="mutex-time"
-                  style="width: 2%"
-                  title="Get Connection"
-                ></div>
                 <div class="work-time parallel-3" style="width: 50%">
                   Query: INSERT INTO logs (40ms)
                 </div>
@@ -1329,7 +1505,7 @@
                   style="width: 1%"
                   title="Get Conn 1"
                 ></div>
-                <div class="work-time sequential-1" style="width: 30%">
+                <div class="work-time sequential-1" style="width: 30%"data-time="SELECT 50ms">
                   SELECT * FROM orders (50ms)
                 </div>
                 <div
